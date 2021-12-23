@@ -23,17 +23,23 @@ class _BarChartAPIState extends State<BarChartAPI> {
   @override
   void initState() {
     super.initState();
-    getData();
+    getData('Najran');
   }
 // دا الفنكشن الخاصه بجلب البيانات
-  void getData() async {
+  void getData(city) async {
     var response = await http.get(
         Uri.parse(
-            'https://animals.a3rff.com/api/Animals/GetSemsterDeathChart'),
+            'https://animals.a3rff.com/api/Animals/GetSemsterDeathChart?city'
+                //هنا لو عاوز تضيف بلد مثلا هتعمل كدا
+                + city
+
+        ),
         headers: {
           "Authorization": "Bearer " + CacheHelper.getData('token'),
 
-        }).then((value) {
+
+
+        },).then((value) {
       GetSemsterDeathChartModel tempdata =
       GetSemsterDeathChartModel.fromJson(json.decode(value.body));
       setState(() {
